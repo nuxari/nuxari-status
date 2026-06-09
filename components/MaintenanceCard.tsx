@@ -10,37 +10,33 @@ export function MaintenanceCard({ window: mw }: Props) {
 
   return (
     <div
-      className="rounded-xl border px-5 py-4"
+      className="border px-5 py-4"
       style={{
-        background: "#161616",
-        borderColor: isActive ? "rgba(139,92,246,0.4)" : "#2b2b2b",
+        background: "#f5f3ee",
+        borderColor: isActive ? "rgba(124,58,237,0.35)" : "#d3cfc3",
       }}
     >
       <div className="flex items-start gap-3">
-        {/* Icon */}
+        {/* Status indicator bar */}
         <div
-          className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg text-base"
-          style={
-            isActive
-              ? { background: "rgba(139,92,246,0.15)", color: "#8b5cf6" }
-              : { background: "#1d1d1d", color: "#9a9a94" }
-          }
-        >
-          ⚙
-        </div>
+          className="mt-1 w-1 self-stretch shrink-0"
+          style={{
+            background: isActive ? "#7c3aed" : "#d3cfc3",
+          }}
+        />
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2 mb-1">
-            <p className="text-sm font-semibold" style={{ color: "#f3f2ee" }}>
+            <p className="text-sm font-semibold" style={{ color: "#161616" }}>
               {mw.title}
             </p>
             {isActive && (
               <span
-                className="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium border"
+                className="inline-flex items-center px-2 py-0.5 text-xs font-medium border"
                 style={{
-                  background: "rgba(139,92,246,0.12)",
-                  color: "#8b5cf6",
-                  borderColor: "rgba(139,92,246,0.3)",
+                  background: "rgba(124,58,237,0.08)",
+                  color: "#4c1d95",
+                  borderColor: "rgba(124,58,237,0.25)",
                 }}
               >
                 In Progress
@@ -49,12 +45,12 @@ export function MaintenanceCard({ window: mw }: Props) {
           </div>
 
           {mw.description && (
-            <p className="text-sm mb-1.5" style={{ color: "#9a9a94" }}>
+            <p className="text-sm mb-1.5" style={{ color: "#5b5b54" }}>
               {mw.description}
             </p>
           )}
 
-          <p className="text-xs" style={{ color: "#6b6b66" }}>
+          <p className="text-xs" style={{ color: "#8a8a80" }}>
             {formatDateTime(mw.scheduledAt)} — {formatDateTime(mw.endsAt)}
           </p>
 
@@ -63,8 +59,8 @@ export function MaintenanceCard({ window: mw }: Props) {
               {mw.components.map((c) => (
                 <span
                   key={c}
-                  className="inline-flex rounded-md px-2 py-0.5 text-xs"
-                  style={{ background: "#1d1d1d", color: "#9a9a94" }}
+                  className="inline-flex px-2 py-0.5 text-xs border"
+                  style={{ background: "#ece9e1", borderColor: "#d3cfc3", color: "#5b5b54" }}
                 >
                   {c.replace(/_/g, " ")}
                 </span>

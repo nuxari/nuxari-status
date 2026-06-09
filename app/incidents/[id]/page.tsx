@@ -33,7 +33,7 @@ export default async function IncidentPage({ params }: PageProps) {
   const isResolved = incident.status === "resolved";
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#0f0f0f" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "#ece9e1" }}>
       <SiteHeader />
 
       <main className="flex-1 mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
@@ -41,48 +41,48 @@ export default async function IncidentPage({ params }: PageProps) {
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-sm mb-8 transition-colors"
-          style={{ color: "#9a9a94" }}
+          style={{ color: "#5b5b54" }}
         >
           ← Back to status
         </Link>
 
         {/* Incident header card */}
         <div
-          className="rounded-xl border overflow-hidden mb-8"
-          style={{ background: "#161616", borderColor: "#2b2b2b" }}
+          className="border overflow-hidden mb-8"
+          style={{ background: "#f5f3ee", borderColor: "#d3cfc3" }}
         >
           <div
             className="px-6 py-5 border-b"
-            style={{ background: "#1d1d1d", borderColor: "#2b2b2b" }}
+            style={{ background: "#ece9e1", borderColor: "#d3cfc3" }}
           >
             {/* Badges */}
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span
-                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border ${sev.darkBg} ${sev.darkText} ${sev.darkBorder}`}
+                className={`inline-flex items-center px-2.5 py-0.5 text-xs font-semibold border ${sev.bg} ${sev.text} ${sev.border}`}
               >
                 {sev.label}
               </span>
               <span
-                className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium border"
-                style={{ background: "rgba(255,255,255,0.04)", borderColor: "#2b2b2b" }}
+                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium border"
+                style={{ background: "#f5f3ee", borderColor: "#d3cfc3" }}
               >
-                <span className={`size-1.5 rounded-full ${st.dot}`} />
-                <span className={st.darkText}>{st.label}</span>
+                <span className={`size-1.5 ${st.dot}`} />
+                <span className={st.text}>{st.label}</span>
               </span>
             </div>
 
-            <h1 className="text-xl font-semibold" style={{ color: "#f3f2ee" }}>
+            <h1 className="text-xl font-semibold" style={{ color: "#161616" }}>
               {incident.title}
             </h1>
             {incident.summary && (
-              <p className="mt-1.5 text-sm" style={{ color: "#9a9a94" }}>
+              <p className="mt-1.5 text-sm" style={{ color: "#5b5b54" }}>
                 {incident.summary}
               </p>
             )}
           </div>
 
           {/* Metadata grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y" style={{ "--tw-divide-color": "#2b2b2b" } as React.CSSProperties}>
+          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y" style={{ "--tw-divide-color": "#d3cfc3" } as React.CSSProperties}>
             <MetaCell label="Started"  value={formatDateTime(incident.startedAt)} />
             <MetaCell label="Duration" value={duration(incident.startedAt, incident.resolvedAt)} />
             <MetaCell label="Status"   value={st.label} />
@@ -99,7 +99,7 @@ export default async function IncidentPage({ params }: PageProps) {
             <section>
               <h2
                 className="text-xs font-semibold uppercase tracking-widest mb-3"
-                style={{ color: "#9a9a94" }}
+                style={{ color: "#8a8a80" }}
               >
                 Affected Services
               </h2>
@@ -107,8 +107,8 @@ export default async function IncidentPage({ params }: PageProps) {
                 {incident.affectedComponents.map((key) => (
                   <span
                     key={key}
-                    className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm"
-                    style={{ borderColor: "#2b2b2b", background: "#1d1d1d", color: "#9a9a94" }}
+                    className="inline-flex items-center gap-2 border px-3 py-1.5 text-sm"
+                    style={{ borderColor: "#d3cfc3", background: "#f5f3ee", color: "#5b5b54" }}
                   >
                     <StatusDot status={"degraded" as ComponentStatus} size="xs" />
                     {key.replace(/_/g, " ")}
@@ -123,15 +123,15 @@ export default async function IncidentPage({ params }: PageProps) {
             <section>
               <h2
                 className="text-xs font-semibold uppercase tracking-widest mb-3"
-                style={{ color: "#9a9a94" }}
+                style={{ color: "#8a8a80" }}
               >
                 Customer Impact
               </h2>
               <div
-                className="rounded-lg border px-4 py-3"
-                style={{ background: "rgba(245,158,11,0.08)", borderColor: "rgba(245,158,11,0.25)" }}
+                className="border px-4 py-3"
+                style={{ background: "rgba(217,119,6,0.06)", borderColor: "rgba(217,119,6,0.25)" }}
               >
-                <p className="text-sm" style={{ color: "#f59e0b" }}>
+                <p className="text-sm" style={{ color: "#92400e" }}>
                   {incident.customerImpact}
                 </p>
               </div>
@@ -142,27 +142,27 @@ export default async function IncidentPage({ params }: PageProps) {
           <section>
             <h2
               className="text-xs font-semibold uppercase tracking-widest mb-5"
-              style={{ color: "#9a9a94" }}
+              style={{ color: "#8a8a80" }}
             >
               Incident Timeline
             </h2>
             <IncidentTimeline updates={incident.updates} />
           </section>
 
-          {/* Root cause — visible once resolved */}
+          {/* Root cause */}
           {(incident as { rootCause?: string | null }).rootCause && (
             <section>
               <h2
                 className="text-xs font-semibold uppercase tracking-widest mb-3"
-                style={{ color: "#9a9a94" }}
+                style={{ color: "#8a8a80" }}
               >
                 Root Cause
               </h2>
               <div
-                className="rounded-lg border px-4 py-3"
-                style={{ background: "#161616", borderColor: "#2b2b2b" }}
+                className="border px-4 py-3"
+                style={{ background: "#f5f3ee", borderColor: "#d3cfc3" }}
               >
-                <p className="text-sm" style={{ color: "#9a9a94" }}>
+                <p className="text-sm" style={{ color: "#5b5b54" }}>
                   {(incident as { rootCause?: string | null }).rootCause}
                 </p>
               </div>
@@ -173,15 +173,15 @@ export default async function IncidentPage({ params }: PageProps) {
             <section>
               <h2
                 className="text-xs font-semibold uppercase tracking-widest mb-3"
-                style={{ color: "#9a9a94" }}
+                style={{ color: "#8a8a80" }}
               >
                 Remediation
               </h2>
               <div
-                className="rounded-lg border px-4 py-3"
-                style={{ background: "#161616", borderColor: "#2b2b2b" }}
+                className="border px-4 py-3"
+                style={{ background: "#f5f3ee", borderColor: "#d3cfc3" }}
               >
-                <p className="text-sm" style={{ color: "#9a9a94" }}>
+                <p className="text-sm" style={{ color: "#5b5b54" }}>
                   {(incident as { remediation?: string | null }).remediation}
                 </p>
               </div>
@@ -192,7 +192,7 @@ export default async function IncidentPage({ params }: PageProps) {
         {/* Back link */}
         <div
           className="mt-12 pt-8 border-t"
-          style={{ borderColor: "#2b2b2b" }}
+          style={{ borderColor: "#d3cfc3" }}
         >
           <Link
             href="/"
@@ -211,14 +211,14 @@ export default async function IncidentPage({ params }: PageProps) {
 
 function MetaCell({ label, value }: { label: string; value: string }) {
   return (
-    <div className="px-4 py-3" style={{ borderColor: "#2b2b2b" }}>
+    <div className="px-4 py-3" style={{ borderColor: "#d3cfc3" }}>
       <p
         className="text-[10px] font-semibold uppercase tracking-wider"
-        style={{ color: "#6b6b66" }}
+        style={{ color: "#8a8a80" }}
       >
         {label}
       </p>
-      <p className="mt-0.5 text-xs font-medium truncate" style={{ color: "#f3f2ee" }}>
+      <p className="mt-0.5 text-xs font-medium truncate" style={{ color: "#161616" }}>
         {value}
       </p>
     </div>

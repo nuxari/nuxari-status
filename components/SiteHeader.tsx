@@ -20,28 +20,27 @@ export function SiteHeader() {
   return (
     <header
       className="sticky top-0 z-50 border-b"
-      style={{ background: "#161616", borderColor: "#2b2b2b" }}
+      style={{ background: "#f5f3ee", borderColor: "#d3cfc3" }}
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14 items-center justify-between gap-4">
 
           {/* ── Left: Logo + wordmark ── */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-            {/* Blue square N logo */}
             <div
-              className="flex size-7 items-center justify-center rounded-md font-bold text-white text-xs transition-opacity group-hover:opacity-80"
+              className="flex size-7 items-center justify-center font-bold text-white text-xs transition-opacity group-hover:opacity-80"
               style={{ background: "#2f4bff" }}
             >
               N
             </div>
             <span
               className="text-sm font-semibold transition-colors group-hover:opacity-80"
-              style={{ color: "#f3f2ee" }}
+              style={{ color: "#161616" }}
             >
               Nuxari
             </span>
-            <span style={{ color: "#2b2b2b" }}>/</span>
-            <span className="text-sm font-medium" style={{ color: "#9a9a94" }}>
+            <span style={{ color: "#d3cfc3" }}>/</span>
+            <span className="text-sm font-medium" style={{ color: "#8a8a80" }}>
               Status
             </span>
           </Link>
@@ -54,10 +53,10 @@ export function SiteHeader() {
                 href={l.href}
                 target={l.external ? "_blank" : undefined}
                 rel={l.external ? "noopener noreferrer" : undefined}
-                className="px-3 py-1.5 rounded-md text-sm transition-colors"
-                style={{ color: "#9a9a94" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#f3f2ee"; (e.currentTarget as HTMLElement).style.background = "#1d1d1d"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#9a9a94"; (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+                className="px-3 py-1.5 text-sm transition-colors"
+                style={{ color: "#5b5b54" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#161616"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#5b5b54"; }}
               >
                 {l.label}
               </a>
@@ -67,7 +66,7 @@ export function SiteHeader() {
               href={APP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 px-4 py-1.5 rounded-md text-sm font-semibold text-white transition-colors"
+              className="ml-2 px-4 py-1.5 text-sm font-semibold text-white transition-colors"
               style={{ background: "#2f4bff" }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#1f37e0"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#2f4bff"; }}
@@ -79,8 +78,8 @@ export function SiteHeader() {
           {/* ── Mobile hamburger ── */}
           <button
             type="button"
-            className="sm:hidden p-2 rounded-md transition-colors"
-            style={{ color: "#9a9a94" }}
+            className="sm:hidden p-2 transition-colors"
+            style={{ color: "#5b5b54" }}
             aria-label="Toggle menu"
             onClick={() => setMobileOpen((v) => !v)}
           >
@@ -101,7 +100,7 @@ export function SiteHeader() {
 
         {/* ── Mobile menu ── */}
         {mobileOpen && (
-          <div className="sm:hidden border-t pb-4" style={{ borderColor: "#2b2b2b" }}>
+          <div className="sm:hidden border-t pb-4" style={{ borderColor: "#d3cfc3" }}>
             <nav className="flex flex-col gap-1 pt-3">
               {navLinks.map((l) => (
                 <a
@@ -109,8 +108,8 @@ export function SiteHeader() {
                   href={l.href}
                   target={l.external ? "_blank" : undefined}
                   rel={l.external ? "noopener noreferrer" : undefined}
-                  className="px-3 py-2 rounded-md text-sm"
-                  style={{ color: "#9a9a94" }}
+                  className="px-3 py-2 text-sm"
+                  style={{ color: "#5b5b54" }}
                   onClick={() => setMobileOpen(false)}
                 >
                   {l.label}
@@ -120,7 +119,7 @@ export function SiteHeader() {
                 href={APP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 mx-1 px-4 py-2 rounded-md text-sm font-semibold text-white text-center"
+                className="mt-2 mx-1 px-4 py-2 text-sm font-semibold text-white text-center"
                 style={{ background: "#2f4bff" }}
                 onClick={() => setMobileOpen(false)}
               >

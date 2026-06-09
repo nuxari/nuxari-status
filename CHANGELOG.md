@@ -8,6 +8,33 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+**Light-mode rebrand — matches nuxari-www palette**
+- Replaced dark operations dashboard with light cream/ink/blue design system matching nuxari-www
+- `globals.css`: `--cream: #ece9e1`, `--paper: #f5f3ee`, `--ink: #161616`, `--muted: #5b5b54`, `--border: #d3cfc3`
+- Removed all `rounded-xl`, `rounded-lg`, `rounded-full` pill corners — sharp edges throughout
+- Removed all emoji from `TrustPanel` (replaced with `—` dash marker) and `MaintenanceCard` (replaced ⚙ with a colored accent bar)
+- `SiteHeader`: paper background, ink text, sharp button edges
+- `Banner`: cream hero, light status badge (colored bg/text/border on light), top accent line
+- `ComponentGroup`: paper card, cream header, light-theme badge classes (`col.bg`/`col.text`/`col.border`)
+- `IncidentCard`: paper card, cream header, light severity/status badges
+- `MaintenanceCard`: paper card, left-side accent bar for in-progress state
+- `SubscribeForm`: cream form field, sharp submit button
+- `SubscribeForm`: success state uses green accent border (no emoji checkmark stays as text `✓`)
+- `SupportCTA`: paper card, sharp CTA buttons
+- `TrustPanel`: paper strip, dash markers, no emojis
+- `UptimeHistory`: paper card, sharp progress bars
+- `IncidentTimeline`: cream ring color on dots, ink text, light border connector line
+- `SiteFooter`: paper footer, muted link colors
+- `app/page.tsx`: cream main background, light empty state cards
+- `app/incidents/[id]/page.tsx`: full light-mode rebrand, light badge classes
+- `app/not-found.tsx`: cream background, sharp blue button
+
+---
+
+## [Previous] — Dark enterprise theme
+
 ### Added
 
 **Brand redesign — dark enterprise theme**

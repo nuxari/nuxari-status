@@ -1,65 +1,68 @@
 @import "tailwindcss";
 
-/* ─── Nuxari Status — Dark Enterprise Design System ─────────────────────── */
+/* ─── Nuxari Status — Light Design System (matches nuxari-www) ───────────── */
 
 :root {
-  /* Core surfaces — dark operations dashboard */
-  --bg:               #0f0f0f;   /* near-black base */
-  --surface:          #161616;   /* elevated surface — matches nuxari-www --ink */
-  --surface-2:        #1d1d1d;   /* further elevated — matches nuxari-www --ink-2 */
-  --surface-3:        #242424;   /* hover/active state */
-  --border-dark:      #2b2b2b;   /* hairline borders on dark */
-  --border-subtle:    #333333;   /* slightly more visible border */
+  --background: #ece9e1;
+  --cream:      #ece9e1;
+  --cream-2:    #e3e0d6;
+  --paper:      #f5f3ee;
+  --ink:        #161616;
+  --ink-2:      #1d1d1d;
 
-  /* Text */
-  --on-dark:          #f3f2ee;   /* primary text — matches nuxari-www */
-  --on-dark-muted:    #9a9a94;   /* secondary text */
-  --on-dark-subtle:   #6b6b66;   /* tertiary / disabled */
+  --foreground:  #161616;
+  --muted:       #5b5b54;
+  --muted-2:     #8a8a80;
 
-  /* Accent — Nuxari electric blue */
-  --blue:             #2f4bff;
-  --blue-hover:       #1f37e0;
-  --blue-glow:        rgba(47, 75, 255, 0.15);
-  --blue-soft:        rgba(47, 75, 255, 0.08);
+  --on-dark:       #f3f2ee;
+  --on-dark-muted: #9a9a94;
+
+  --border:      #d3cfc3;
+  --border-dark: #2b2b2b;
+
+  --blue:      #2f4bff;
+  --blue-600:  #1f37e0;
+  --blue-soft: #e7e9ff;
 
   /* Status colors */
-  --status-operational:    #10b981;  /* emerald-500 */
-  --status-degraded:       #f59e0b;  /* amber-500 */
-  --status-partial-outage: #f97316;  /* orange-500 */
-  --status-major-outage:   #ef4444;  /* red-500 */
-  --status-maintenance:    #8b5cf6;  /* violet-500 */
-  --status-unknown:        #6b7280;  /* gray-500 */
+  --status-operational:    #10b981;
+  --status-degraded:       #d97706;
+  --status-partial-outage: #ea580c;
+  --status-major-outage:   #dc2626;
+  --status-maintenance:    #7c3aed;
+  --status-unknown:        #6b7280;
 }
 
 @theme inline {
   --font-sans: var(--font-geist-sans, system-ui, -apple-system, sans-serif);
   --font-mono: var(--font-geist-mono, ui-monospace, monospace);
 
-  /* Surfaces */
-  --color-bg:               var(--bg);
-  --color-surface:          var(--surface);
-  --color-surface-2:        var(--surface-2);
-  --color-surface-3:        var(--surface-3);
-  --color-border-dark:      var(--border-dark);
-  --color-border-subtle:    var(--border-subtle);
+  --color-background: var(--background);
+  --color-cream:      var(--cream);
+  --color-cream-2:    var(--cream-2);
+  --color-paper:      var(--paper);
+  --color-ink:        var(--ink);
+  --color-ink-2:      var(--ink-2);
 
-  /* Text */
-  --color-on-dark:          var(--on-dark);
-  --color-on-dark-muted:    var(--on-dark-muted);
-  --color-on-dark-subtle:   var(--on-dark-subtle);
+  --color-foreground:    var(--foreground);
+  --color-muted:         var(--muted);
+  --color-muted-2:       var(--muted-2);
+  --color-on-dark:       var(--on-dark);
+  --color-on-dark-muted: var(--on-dark-muted);
 
-  /* Accent */
-  --color-blue:             var(--blue);
-  --color-blue-hover:       var(--blue-hover);
-  --color-blue-glow:        var(--blue-glow);
+  --color-border:      var(--border);
+  --color-border-dark: var(--border-dark);
 
-  /* Status */
-  --color-operational:      var(--status-operational);
-  --color-degraded:         var(--status-degraded);
-  --color-partial-outage:   var(--status-partial-outage);
-  --color-major-outage:     var(--status-major-outage);
-  --color-maintenance:      var(--status-maintenance);
-  --color-unknown:          var(--status-unknown);
+  --color-blue:      var(--blue);
+  --color-blue-600:  var(--blue-600);
+  --color-blue-soft: var(--blue-soft);
+
+  --color-operational:    var(--status-operational);
+  --color-degraded:       var(--status-degraded);
+  --color-partial-outage: var(--status-partial-outage);
+  --color-major-outage:   var(--status-major-outage);
+  --color-maintenance:    var(--status-maintenance);
+  --color-unknown:        var(--status-unknown);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -71,33 +74,14 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--bg);
-  color: var(--on-dark);
+  background: var(--background);
+  color: var(--foreground);
   letter-spacing: -0.01em;
 }
 
 ::selection {
   background: var(--blue);
   color: #ffffff;
-}
-
-/* Dot-grid background pattern (CSS-only) */
-.bg-dot-grid {
-  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* Subtle line grid */
-.bg-line-grid {
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-/* Blue glow utility */
-.blue-glow {
-  box-shadow: 0 0 0 1px var(--blue-glow), 0 4px 24px var(--blue-glow);
 }
 
 /* Pulse animation for status dots */

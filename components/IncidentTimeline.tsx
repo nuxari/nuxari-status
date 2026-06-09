@@ -9,7 +9,6 @@ interface Props {
 export function IncidentTimeline({ updates }: Props) {
   if (updates.length === 0) return null;
 
-  // Show oldest first so timeline reads top-to-bottom
   const ordered = [...updates].sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   );
@@ -28,7 +27,7 @@ export function IncidentTimeline({ updates }: Props) {
                 {!isLast && (
                   <span
                     className="absolute left-3.5 top-5 -ml-px h-full w-px"
-                    style={{ background: "#2b2b2b" }}
+                    style={{ background: "#d3cfc3" }}
                     aria-hidden="true"
                   />
                 )}
@@ -37,22 +36,22 @@ export function IncidentTimeline({ updates }: Props) {
                   {/* Dot */}
                   <div className="relative flex size-7 shrink-0 items-center justify-center">
                     <span
-                      className={`size-2.5 rounded-full ring-4 ${cfg.dot}`}
-                      style={{ "--tw-ring-color": "#161616" } as React.CSSProperties}
+                      className={`size-2.5 ring-4 ${cfg.dot}`}
+                      style={{ "--tw-ring-color": "#ece9e1" } as React.CSSProperties}
                     />
                   </div>
 
                   {/* Content */}
                   <div className="min-w-0 flex-1 pt-0.5">
                     <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                      <span className={`text-xs font-semibold uppercase tracking-wide ${cfg.darkText}`}>
+                      <span className={`text-xs font-semibold uppercase tracking-wide ${cfg.text}`}>
                         {cfg.label}
                       </span>
-                      <time className="text-xs" style={{ color: "#6b6b66" }}>
+                      <time className="text-xs" style={{ color: "#8a8a80" }}>
                         {formatDateTime(u.createdAt)}
                       </time>
                     </div>
-                    <p className="text-sm leading-relaxed" style={{ color: "#9a9a94" }}>
+                    <p className="text-sm leading-relaxed" style={{ color: "#5b5b54" }}>
                       {u.message}
                     </p>
                   </div>

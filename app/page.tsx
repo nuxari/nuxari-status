@@ -43,7 +43,7 @@ export default async function StatusPage() {
   const allComponents = orderedGroups.flatMap((g) => summary.components[g] ?? []);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#0f0f0f" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "#ece9e1" }}>
       <SiteHeader />
       <Banner
         status={summary.status}
@@ -92,10 +92,10 @@ export default async function StatusPage() {
             ))}
             {orderedGroups.length === 0 && (
               <div
-                className="rounded-xl border px-6 py-8 text-center"
-                style={{ background: "#161616", borderColor: "#2b2b2b" }}
+                className="border px-6 py-8 text-center"
+                style={{ background: "#f5f3ee", borderColor: "#d3cfc3" }}
               >
-                <p className="text-sm" style={{ color: "#9a9a94" }}>
+                <p className="text-sm" style={{ color: "#5b5b54" }}>
                   Component data is not yet available.
                 </p>
               </div>
@@ -139,7 +139,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
     <h2
       className="mb-4 text-xs font-semibold uppercase tracking-widest"
-      style={{ color: "#9a9a94" }}
+      style={{ color: "#8a8a80" }}
     >
       {children}
     </h2>
@@ -148,25 +148,25 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 function ErrorState() {
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#0f0f0f" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "#ece9e1" }}>
       <SiteHeader />
       <div className="flex-1 flex items-center justify-center px-4 py-20">
         <div className="text-center max-w-sm">
           <div
-            className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl"
-            style={{ background: "#1d1d1d" }}
+            className="mx-auto mb-4 flex size-12 items-center justify-center border"
+            style={{ background: "#f5f3ee", borderColor: "#d3cfc3" }}
           >
-            <span style={{ color: "#9a9a94", fontSize: "1.25rem" }}>—</span>
+            <span style={{ color: "#8a8a80", fontSize: "1.25rem" }}>—</span>
           </div>
-          <h2 className="text-base font-semibold" style={{ color: "#f3f2ee" }}>
+          <h2 className="text-base font-semibold" style={{ color: "#161616" }}>
             Status unavailable
           </h2>
-          <p className="mt-1 text-sm" style={{ color: "#9a9a94" }}>
+          <p className="mt-1 text-sm" style={{ color: "#5b5b54" }}>
             We couldn&apos;t load the current system status. Please try again shortly.
           </p>
           <a
             href="/"
-            className="mt-4 inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
+            className="mt-4 inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition-colors"
             style={{ background: "#2f4bff" }}
           >
             Refresh

@@ -9,7 +9,7 @@ export function SiteFooter() {
   return (
     <footer
       className="mt-16 border-t"
-      style={{ background: "#161616", borderColor: "#2b2b2b" }}
+      style={{ background: "#f5f3ee", borderColor: "#d3cfc3" }}
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
@@ -17,12 +17,12 @@ export function SiteFooter() {
           {/* Left: logo + copyright */}
           <div className="flex items-center gap-2.5">
             <div
-              className="flex size-6 items-center justify-center rounded-md text-[10px] font-bold text-white shrink-0"
+              className="flex size-6 items-center justify-center text-[10px] font-bold text-white shrink-0"
               style={{ background: "#2f4bff" }}
             >
               N
             </div>
-            <span className="text-xs" style={{ color: "#6b6b66" }}>
+            <span className="text-xs" style={{ color: "#8a8a80" }}>
               © {year} Nuxari. All rights reserved.
             </span>
           </div>
@@ -43,25 +43,29 @@ export function SiteFooter() {
                 target={l.ext ? "_blank" : undefined}
                 rel={l.ext ? "noopener noreferrer" : undefined}
                 className="text-xs transition-colors"
-                style={{ color: "#6b6b66" }}
+                style={{ color: "#8a8a80" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#161616"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#8a8a80"; }}
               >
                 {l.label}
               </a>
             ))}
           </nav>
 
-          {/* Right: view all incidents + RSS (coming soon) */}
+          {/* Right */}
           <div className="flex items-center gap-3">
             <a
               href="/incidents"
               className="text-xs transition-colors"
-              style={{ color: "#9a9a94" }}
+              style={{ color: "#5b5b54" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#161616"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#5b5b54"; }}
             >
-              View all incidents →
+              View all incidents
             </a>
             <span
-              className="inline-flex items-center rounded px-2 py-0.5 text-[10px] font-medium border"
-              style={{ color: "#6b6b66", borderColor: "#2b2b2b", background: "#1d1d1d" }}
+              className="inline-flex items-center px-2 py-0.5 text-[10px] font-medium border"
+              style={{ color: "#8a8a80", borderColor: "#d3cfc3", background: "#ece9e1" }}
               title="RSS feed coming soon"
             >
               RSS

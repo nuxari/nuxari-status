@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { NuxariLogo } from "./NuxariLogo";
 
 const APP_URL     = process.env.NEXT_PUBLIC_APP_URL     ?? "https://app.nuxari.com";
 const WWW_URL     = process.env.NEXT_PUBLIC_WWW_URL     ?? "https://nuxari.com";
@@ -9,9 +10,9 @@ const DOCS_URL    = process.env.NEXT_PUBLIC_DOCS_URL    ?? "https://nuxari.com/d
 const SUPPORT_URL = process.env.NEXT_PUBLIC_SUPPORT_URL ?? "https://app.nuxari.com/admin/support/tickets/new";
 
 const navLinks = [
-  { label: "Home",    href: WWW_URL,     external: true  },
-  { label: "Docs",    href: DOCS_URL,    external: true  },
-  { label: "Support", href: SUPPORT_URL, external: true  },
+  { label: "Home",    href: WWW_URL,     external: true },
+  { label: "Docs",    href: DOCS_URL,    external: true },
+  { label: "Support", href: SUPPORT_URL, external: true },
 ];
 
 export function SiteHeader() {
@@ -26,19 +27,8 @@ export function SiteHeader() {
         <div className="flex h-14 items-center justify-between gap-4">
 
           {/* ── Left: Logo + wordmark ── */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-            <div
-              className="flex size-7 items-center justify-center font-bold text-white text-xs transition-opacity group-hover:opacity-80"
-              style={{ background: "#2f4bff" }}
-            >
-              N
-            </div>
-            <span
-              className="text-sm font-semibold transition-colors group-hover:opacity-80"
-              style={{ color: "#161616" }}
-            >
-              Nuxari
-            </span>
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 group transition-opacity hover:opacity-80">
+            <NuxariLogo size="sm" variant="full" />
             <span style={{ color: "#d3cfc3" }}>/</span>
             <span className="text-sm font-medium" style={{ color: "#8a8a80" }}>
               Status

@@ -68,9 +68,7 @@ test("1. Banner renders without crashing", () => {
 // ── Test 2: Nuxari branding is present ────────────────────────────────────────
 test("2. SiteHeader renders Nuxari branding (logo letter and wordmark)", () => {
   render(<SiteHeader />);
-  // The N logo
-  expect(screen.getByText("N")).toBeInTheDocument();
-  // The Nuxari wordmark
+  // The Nuxari wordmark (isometric logo replaced single-letter mark)
   const nuxariTexts = screen.getAllByText("Nuxari");
   expect(nuxariTexts.length).toBeGreaterThan(0);
   // The Status label

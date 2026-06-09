@@ -8,6 +8,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Security
+
+**Security hardening — headers, CI, health-check safety review**
+- Added security headers to `next.config.ts` via `async headers()`:
+  - `X-Frame-Options: SAMEORIGIN` — prevents clickjacking
+  - `X-Content-Type-Options: nosniff` — prevents MIME-type sniffing
+  - `Referrer-Policy: strict-origin-when-cross-origin` — limits referrer leakage
+  - `Permissions-Policy: camera=(), microphone=(), geolocation=()` — disables unused browser APIs
+  - `X-DNS-Prefetch-Control: on` — enables DNS prefetch for performance
+  - `Cross-Origin-Opener-Policy: same-origin-allow-popups` — scopes cross-origin opener access
+- Audited `app/api/health-check/route.ts`: confirmed no internal hostnames/IPs in responses, raw errors are suppressed, only safe status values (`ok`/`degraded`/`down`/`unknown`) returned
+- Added `.github/workflows/ci.yml` with Node 20, `npm ci`, TypeScript check, build, and test steps
+- Confirmed `npm audit fix` (safe-only) — remaining vulnerabilities require `--force` (breaking Next.js upgrade); documented for planned upgrade
+
 ### Changed
 
 **Light-mode rebrand — matches nuxari-www palette**

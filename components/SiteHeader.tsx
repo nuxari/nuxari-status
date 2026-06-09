@@ -1,33 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NuxariLogo } from "./NuxariLogo";
 
-const APP_URL     = process.env.NEXT_PUBLIC_APP_URL     ?? "https://app.nuxari.com";
-const WWW_URL     = process.env.NEXT_PUBLIC_WWW_URL     ?? "https://nuxari.com";
-const DOCS_URL    = process.env.NEXT_PUBLIC_DOCS_URL    ?? "https://nuxari.com/docs";
-const SUPPORT_URL = process.env.NEXT_PUBLIC_SUPPORT_URL ?? "https://app.nuxari.com/admin/support/tickets/new";
+const APP_URL  = process.env.NEXT_PUBLIC_APP_URL  ?? "https://app.nuxari.com";
+const WWW_URL  = process.env.NEXT_PUBLIC_WWW_URL  ?? "https://nuxari.com";
+const DOCS_URL = process.env.NEXT_PUBLIC_DOCS_URL ?? "https://nuxari.com/docs";
 
 const navLinks = [
   { label: "Home",    href: WWW_URL,     external: true },
   { label: "Docs",    href: DOCS_URL,    external: true },
-  { label: "Support", href: SUPPORT_URL, external: true },
 ];
 
 export function SiteHeader() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled,    setScrolled]    = useState(false);
+  const [mobileOpen,  setMobileOpen]  = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header
-      className="sticky top-0 z-50 border-b"
-      style={{ background: "#f5f3ee", borderColor: "#d3cfc3" }}
+      className="sticky top-0 z-50 border-b transition-colors duration-300"
+      style={{
+        background:   "rgba(236,233,225,0.92)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        borderColor:  scrolled ? "#d3cfc3" : "transparent",
+      }}
     >
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
         <div className="flex h-14 items-center justify-between gap-4">
 
-          {/* ── Left: Logo + wordmark ── */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 group transition-opacity hover:opacity-80">
+          {/* Left: Logo + wordmark + divider + "Status" */}
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 shrink-0 transition-opacity hover:opacity-80"
+          >
             <NuxariLogo size="sm" variant="full" />
             <span style={{ color: "#d3cfc3" }}>/</span>
             <span className="text-sm font-medium" style={{ color: "#8a8a80" }}>
@@ -35,7 +49,7 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          {/* ── Desktop nav ── */}
+          {/* Desktop nav */}
           <nav className="hidden sm:flex items-center gap-1">
             {navLinks.map((l) => (
               <a
@@ -43,7 +57,7 @@ export function SiteHeader() {
                 href={l.href}
                 target={l.external ? "_blank" : undefined}
                 rel={l.external ? "noopener noreferrer" : undefined}
-                className="px-3 py-1.5 text-sm transition-colors"
+                className="px-3 py-2 text-[13.5px] font-medium transition-colors"
                 style={{ color: "#5b5b54" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#161616"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#5b5b54"; }}
@@ -53,19 +67,31 @@ export function SiteHeader() {
             ))}
 
             <a
+              href={`${APP_URL}/auth/login`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-2 text-[13.5px] font-medium transition-colors"
+              style={{ color: "#5b5b54" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#161616"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#5b5b54"; }}
+            >
+              Sign in
+            </a>
+
+            <a
               href={APP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 px-4 py-1.5 text-sm font-semibold text-white transition-colors"
-              style={{ background: "#2f4bff" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#1f37e0"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#2f4bff"; }}
+              className="ml-1 px-4 py-1.5 text-[13.5px] font-semibold text-white transition-colors"
+              style={{ background: "#161616" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#2b2b2b"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#161616"; }}
             >
               Open app
             </a>
           </nav>
 
-          {/* ── Mobile hamburger ── */}
+          {/* Mobile hamburger */}
           <button
             type="button"
             className="sm:hidden p-2 transition-colors"
@@ -88,9 +114,12 @@ export function SiteHeader() {
           </button>
         </div>
 
-        {/* ── Mobile menu ── */}
+        {/* Mobile menu */}
         {mobileOpen && (
-          <div className="sm:hidden border-t pb-4" style={{ borderColor: "#d3cfc3" }}>
+          <div
+            className="sm:hidden border-t pb-4"
+            style={{ borderColor: "#d3cfc3" }}
+          >
             <nav className="flex flex-col gap-1 pt-3">
               {navLinks.map((l) => (
                 <a
@@ -106,11 +135,21 @@ export function SiteHeader() {
                 </a>
               ))}
               <a
+                href={`${APP_URL}/auth/login`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 text-sm"
+                style={{ color: "#5b5b54" }}
+                onClick={() => setMobileOpen(false)}
+              >
+                Sign in
+              </a>
+              <a
                 href={APP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 mx-1 px-4 py-2 text-sm font-semibold text-white text-center"
-                style={{ background: "#2f4bff" }}
+                style={{ background: "#161616" }}
                 onClick={() => setMobileOpen(false)}
               >
                 Open app

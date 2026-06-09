@@ -1,9 +1,24 @@
 "use client";
 
-const SUPPORT_URL = process.env.NEXT_PUBLIC_SUPPORT_URL ?? "https://app.nuxari.com/admin/support/tickets/new";
-const APP_URL     = process.env.NEXT_PUBLIC_APP_URL     ?? "https://app.nuxari.com";
+import { useState, useEffect } from "react";
+
+const APP_URL            = process.env.NEXT_PUBLIC_APP_URL  ?? "https://app.nuxari.com";
+const WWW_URL            = process.env.NEXT_PUBLIC_WWW_URL  ?? "https://nuxari.com";
+const APP_SUPPORT_URL    = `${APP_URL}/admin/support/tickets/new`;
+const PUBLIC_SUPPORT_URL = `${WWW_URL}/support`;
+
+function hasAuthCookie(): boolean {
+  if (typeof document === "undefined") return false;
+  return document.cookie.split(";").some((c) => c.trim().startsWith("nuxari_access="));
+}
 
 export function SupportCTA() {
+  const [supportUrl, setSupportUrl] = useState(PUBLIC_SUPPORT_URL);
+
+  useEffect(() => {
+    setSupportUrl(hasAuthCookie() ? APP_SUPPORT_URL : PUBLIC_SUPPORT_URL);
+  }, []);
+
   return (
     <section
       className="border px-6 py-7"
@@ -27,11 +42,13 @@ export function SupportCTA() {
             rel="noopener noreferrer"
             className="inline-flex items-center px-4 py-2 text-sm font-medium border transition-colors"
             style={{ color: "#5b5b54", borderColor: "#d3cfc3", background: "transparent" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#ece9e1"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
           >
             Open app
           </a>
           <a
-            href={SUPPORT_URL}
+            href={supportUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition-colors"

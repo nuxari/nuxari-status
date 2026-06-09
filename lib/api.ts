@@ -41,11 +41,15 @@ export async function getIncidentById(id: string): Promise<StatusIncidentRecord 
   }
 }
 
-export async function subscribeToStatus(email: string, components?: string[]): Promise<void> {
+export async function subscribeToStatus(
+  email: string,
+  components?: string[],
+  turnstileToken?: string,
+): Promise<void> {
   const res = await fetch(`${API}/api/status/subscribe`, {
     method:  "POST",
     headers: { "Content-Type": "application/json" },
-    body:    JSON.stringify({ email, components }),
+    body:    JSON.stringify({ email, components, turnstileToken }),
   });
   const json = await res.json();
   if (!res.ok || !json.success) {

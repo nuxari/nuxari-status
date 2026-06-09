@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { getPublicStatus, getIncidents } from "@/lib/api";
-import { GROUP_ORDER, GROUP_LABELS } from "@/lib/tokens";
+import { GROUP_ORDER, GROUP_LABELS }     from "@/lib/tokens";
 import { Banner }          from "@/components/Banner";
 import { ComponentGroup }  from "@/components/ComponentGroup";
-import { IncidentCard }    from "@/components/IncidentCard";
+import { IncidentCard, NoIncidentsCard } from "@/components/IncidentCard";
 import { MaintenanceCard } from "@/components/MaintenanceCard";
 import { SubscribeForm }   from "@/components/SubscribeForm";
 import { SiteHeader }      from "@/components/SiteHeader";
 import { SiteFooter }      from "@/components/SiteFooter";
+import { SupportCTA }      from "@/components/SupportCTA";
+import { TrustPanel }      from "@/components/TrustPanel";
+import { UptimeHistory }   from "@/components/UptimeHistory";
 
 export const metadata: Metadata = {
-  title: "Nuxari Status",
+  title: "Nuxari Status | System Health and Incident Updates",
 };
 
 // Revalidate every 60 seconds (ISR) — fresh enough for a status page
@@ -36,8 +39,11 @@ export default async function StatusPage() {
     ...Object.keys(summary.components).filter((g) => !GROUP_ORDER.includes(g)),
   ];
 
+  // Flatten all components for UptimeHistory
+  const allComponents = orderedGroups.flatMap((g) => summary.components[g] ?? []);
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: "#0f0f0f" }}>
       <SiteHeader />
       <Banner
         status={summary.status}
@@ -48,16 +54,18 @@ export default async function StatusPage() {
       <main className="flex-1 mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8 space-y-12">
 
         {/* Active incidents */}
-        {summary.activeIncidents.length > 0 && (
-          <section>
-            <SectionHeading>Active Incidents</SectionHeading>
+        <section>
+          <SectionHeading>Active Incidents</SectionHeading>
+          {summary.activeIncidents.length > 0 ? (
             <div className="space-y-4">
               {summary.activeIncidents.map((inc) => (
                 <IncidentCard key={inc.id} incident={inc} />
               ))}
             </div>
-          </section>
-        )}
+          ) : (
+            <NoIncidentsCard />
+          )}
+        </section>
 
         {/* Upcoming maintenance */}
         {summary.upcomingMaintenance.length > 0 && (
@@ -82,8 +90,21 @@ export default async function StatusPage() {
                 components={summary.components[g]}
               />
             ))}
+            {orderedGroups.length === 0 && (
+              <div
+                className="rounded-xl border px-6 py-8 text-center"
+                style={{ background: "#161616", borderColor: "#2b2b2b" }}
+              >
+                <p className="text-sm" style={{ color: "#9a9a94" }}>
+                  Component data is not yet available.
+                </p>
+              </div>
+            )}
           </div>
         </section>
+
+        {/* 30-day uptime history */}
+        <UptimeHistory components={allComponents} />
 
         {/* Incident history */}
         {history.length > 0 && (
@@ -101,6 +122,12 @@ export default async function StatusPage() {
         <section>
           <SubscribeForm />
         </section>
+
+        {/* Support CTA */}
+        <SupportCTA />
+
+        {/* Trust panel */}
+        <TrustPanel />
       </main>
 
       <SiteFooter />
@@ -110,7 +137,10 @@ export default async function StatusPage() {
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+    <h2
+      className="mb-4 text-xs font-semibold uppercase tracking-widest"
+      style={{ color: "#9a9a94" }}
+    >
       {children}
     </h2>
   );
@@ -118,20 +148,26 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 function ErrorState() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: "#0f0f0f" }}>
       <SiteHeader />
       <div className="flex-1 flex items-center justify-center px-4 py-20">
         <div className="text-center max-w-sm">
-          <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl bg-gray-100">
-            <span className="text-gray-400 text-xl">—</span>
+          <div
+            className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl"
+            style={{ background: "#1d1d1d" }}
+          >
+            <span style={{ color: "#9a9a94", fontSize: "1.25rem" }}>—</span>
           </div>
-          <h2 className="text-base font-semibold text-gray-900">Status unavailable</h2>
-          <p className="mt-1 text-sm text-gray-500">
+          <h2 className="text-base font-semibold" style={{ color: "#f3f2ee" }}>
+            Status unavailable
+          </h2>
+          <p className="mt-1 text-sm" style={{ color: "#9a9a94" }}>
             We couldn&apos;t load the current system status. Please try again shortly.
           </p>
           <a
             href="/"
-            className="mt-4 inline-flex items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 transition-colors"
+            className="mt-4 inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
+            style={{ background: "#2f4bff" }}
           >
             Refresh
           </a>

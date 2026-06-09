@@ -24,21 +24,38 @@ export function SubscribeForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-6 py-5 text-center">
-        <div className="mx-auto mb-2 flex size-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 text-lg">✓</div>
-        <p className="text-sm font-semibold text-emerald-800">You&apos;re subscribed</p>
-        <p className="mt-0.5 text-xs text-emerald-600">
-          You&apos;ll receive email notifications during incidents and when they resolve.
-        </p>
+      <div
+        className="rounded-xl border px-6 py-6 flex items-center gap-4"
+        style={{ background: "#161616", borderColor: "rgba(16,185,129,0.3)" }}
+      >
+        <div
+          className="flex size-10 shrink-0 items-center justify-center rounded-full text-lg"
+          style={{ background: "rgba(16,185,129,0.12)", color: "#10b981" }}
+        >
+          ✓
+        </div>
+        <div>
+          <p className="text-sm font-semibold" style={{ color: "#f3f2ee" }}>
+            You&apos;re subscribed
+          </p>
+          <p className="mt-0.5 text-xs" style={{ color: "#9a9a94" }}>
+            You&apos;ll receive email notifications during incidents and when they resolve.
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white shadow-sm px-6 py-6">
+    <div
+      className="rounded-xl border px-6 py-6"
+      style={{ background: "#161616", borderColor: "#2b2b2b" }}
+    >
       <div className="mb-4">
-        <h3 className="text-sm font-semibold text-gray-900">Get notified about incidents</h3>
-        <p className="mt-0.5 text-xs text-gray-500">
+        <h3 className="text-sm font-semibold" style={{ color: "#f3f2ee" }}>
+          Get notified about incidents
+        </h3>
+        <p className="mt-0.5 text-xs" style={{ color: "#9a9a94" }}>
           Receive an email when incidents are opened, updated, or resolved.
         </p>
       </div>
@@ -51,19 +68,30 @@ export function SubscribeForm() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@company.com"
           disabled={status === "loading"}
-          className="min-w-0 flex-1 rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:opacity-50"
+          className="min-w-0 flex-1 rounded-lg px-4 py-2.5 text-sm placeholder:text-[#6b6b66] focus:outline-none focus:ring-2 disabled:opacity-50"
+          style={{
+            background: "#1d1d1d",
+            border: "1px solid #2b2b2b",
+            color: "#f3f2ee",
+            "--tw-ring-color": "rgba(47,75,255,0.3)",
+          } as React.CSSProperties}
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="shrink-0 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition-colors"
+          className="shrink-0 rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50"
+          style={{ background: "#2f4bff" }}
+          onMouseEnter={(e) => { if (status !== "loading") (e.currentTarget as HTMLElement).style.background = "#1f37e0"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#2f4bff"; }}
         >
           {status === "loading" ? "Subscribing…" : "Subscribe"}
         </button>
       </form>
 
       {status === "error" && (
-        <p className="mt-2.5 text-xs text-red-600">{message}</p>
+        <p className="mt-2.5 text-xs" style={{ color: "#ef4444" }}>
+          {message}
+        </p>
       )}
     </div>
   );
